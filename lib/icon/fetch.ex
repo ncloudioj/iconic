@@ -63,17 +63,9 @@ defmodule Icon.Fetch do
         uri = URI.parse(href)
         case uri do
           %URI{host: nil} ->
-            %{
-              icon |
-              href: %{URI.parse(url) | path: uri.path}
-                    |> URI.to_string
-            }
+            %{icon | href: %{URI.parse(url) | path: uri.path} |> URI.to_string}
           %URI{scheme: nil} ->
-            %{
-              icon |
-              href: %{uri | scheme: "http"}
-                    |> URI.to_string
-            }
+            %{icon | href: %{uri | scheme: "http"} |> URI.to_string}
           _ ->
             icon
         end
