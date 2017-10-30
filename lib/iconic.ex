@@ -1,4 +1,8 @@
 defmodule Iconic do
+  @moduledoc """
+  Application module for iconic.
+
+  """
 
   use Application
   alias Icon.Fetch
@@ -18,7 +22,7 @@ defmodule Iconic do
   end
 
   def mget(urls, timeout \\ 5000, max_concurrency \\ 0) do
-    max_concurrency = max_concurrency || System.schedulers_online
+    max_concurrency = max(max_concurrency, System.schedulers_online())
 
     Task.Supervisor.async_stream(Icon.Fetch.Supervisor, urls, Fetch, :fetch, [],
                                  [timeout: timeout, max_concurrency: max_concurrency])

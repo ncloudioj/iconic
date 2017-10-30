@@ -1,10 +1,13 @@
 defmodule Icon.Fetch do
+  @moduledoc """
+  Icon fetching related functions.
+
+  """
+
   def fetch(url) do
-    url =
-    if !Regex.match?(~r/^https?/, url) do
-      "http://#{url}"
-    else
-      url
+    url = case Regex.match?(~r/^https?/, url) do
+      true -> url
+      false -> "http://#{url}"
     end
 
     url
@@ -23,7 +26,9 @@ defmodule Icon.Fetch do
   end
 
   defp extract_icons(html) do
-    Floki.find(html, "link")
+    links = Floki.find(html, "link")
+
+    links
     |> Enum.filter(fn {_tag, attrs, _children} -> icon_link?(attrs) end)
     |> Enum.map(fn {_tag, attrs, _children} -> attrs end)
     |> Enum.map(fn attrs -> make_icon(attrs) end)
