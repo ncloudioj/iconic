@@ -4,6 +4,8 @@ defmodule Icon.Fetch do
 
   """
 
+  @http_client Application.get_env(:iconic, :http_client)
+
   def fetch(url) do
     url = case Regex.match?(~r/^https?/, url) do
       true -> url
@@ -11,7 +13,7 @@ defmodule Icon.Fetch do
     end
 
     url
-    |> HTTPoison.get([], [follow_redirect: true])
+    |> @http_client.get([], [follow_redirect: true])
     |> parse_response
     |> extract_icons
     |> Enum.map(fn icon -> resolve_href(icon, url) end)
