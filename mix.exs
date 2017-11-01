@@ -26,7 +26,9 @@ defmodule Iconic.Mixfile do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
       {:floki, "~> 0.18.0"},
       {:httpoison, "0.13.0"},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:earmark, "~> 1.2.3", only: [:dev]},
+      {:ex_doc, "~> 0.18.1", only: [:dev]}
     ]
   end
 end

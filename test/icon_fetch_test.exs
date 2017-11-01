@@ -1,38 +1,35 @@
-defmodule HTTPoisonMock do
-
-  @body_test_com ~s(
-    <html>
-    <header>
-    <link rel="icon" type="image/x-icon" href="/a/favicon.ico" sizes="16x16" />
-    </header>
-    </html>
-  )
-
-  def get("test.com") do
-    {:ok, %HTTPoison.Response{body: @body_test_com, status_code: 200}}
-  end
-
-  def get(_) do
-    {:error, %HTTPoison.Response{status_code: 404}}
-  end
-end
-
 defmodule IconFetchTest do
   use ExUnit.Case, async: true
 
-  @http_client Application.get_env(:iconic, :http_client)
+  alias Icon.Fetch
 
-  test "http get should return a response on success" do
-    {status, %HTTPoison.Response{status_code: status_code}} = @http_client.get("test.com")
+  test "it should fetch the icon on success" do
+    icons = Fetch.fetch("http://test.com")
 
-    assert status == :ok
-    assert status_code == 200
+    assert length(icons) == 1
+
+    icon = hd icons
+    assert icon.href == "http://test.com/a/favicon.ico"
+    assert icon.rel == "icon"
+    assert icon.sizes == "16x16"
+    assert icon.type == "image/x-icon"
   end
 
-  test "http get should return a response on 404" do
-    {status, %HTTPoison.Response{status_code: status_code}} = @http_client.get("404.com")
+  test "it should add the scheme if it's not provided" do
+    icons = Fetch.fetch("test.com")
 
-    assert status == :error
-    assert status_code == 404
+    assert length(icons) == 1
+
+    icon = hd icons
+    assert icon.href == "http://test.com/a/favicon.ico"
+    assert icon.rel == "icon"
+    assert icon.sizes == "16x16"
+    assert icon.type == "image/x-icon"
+  end
+
+  test "it should return an empty list on http error" do
+    icons = Fetch.fetch("404.com")
+
+    assert icons == []
   end
 end
