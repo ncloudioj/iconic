@@ -43,7 +43,7 @@ The package can be installed by adding `iconic` to your list of dependencies in 
 ```elixir
 def deps do
   [
-    {:iconic, "~> 0.1.0"}
+    {:iconic, "~> 0.1.1"}
   ]
 end
 ```
