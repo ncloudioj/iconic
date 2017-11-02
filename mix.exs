@@ -4,7 +4,7 @@ defmodule Iconic.Mixfile do
   def project do
     [
       app: :iconic,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.5",
       build_embeded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
@@ -20,7 +20,8 @@ defmodule Iconic.Mixfile do
   def application do
     [
       extra_applications: [:httpoison],
-      mod: {Iconic, []}
+      mod: {Iconic, []},
+      env: [http_client: HTTPoison]
     ]
   end
 

@@ -4,8 +4,8 @@ defmodule Iconic do
 
   ## Examples
 
-      Task.await(Iconic.get("www.foo.com"))
-      Enum.to_list(Iconic.mget(["www.foo.com", "www.bar.com", "www.baz.com"]))
+      iex> Task.await(Iconic.get("www.foo.com"))
+      iex> Enum.to_list(Iconic.mget(["www.foo.com", "www.bar.com", "www.baz.com"]))
 
   """
 
@@ -27,8 +27,8 @@ defmodule Iconic do
 
   ## Examples
 
-  task = Iconic.get("www.foo.com")
-  Task.await(task)
+      iex> task = Iconic.get("www.foo.com")
+      iex> Task.await(task)
   """
   @spec get(String.t) :: Task.t
   def get(url) do
@@ -48,8 +48,8 @@ defmodule Iconic do
 
   ## Examples
 
-    tasks = Iconic.mget(["www.foo.com", "www.bar.com", "www.baz.com"])
-    Enum.to_list(tasks)
+        iex> tasks = Iconic.mget(["www.foo.com", "www.bar.com", "www.baz.com"])
+        iex> Enum.to_list(tasks)
 
   """
   @spec mget(String.t, keyword) :: Enumerable.t
