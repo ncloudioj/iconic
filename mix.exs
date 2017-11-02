@@ -6,24 +6,40 @@ defmodule Iconic.Mixfile do
       app: :iconic,
       version: "0.1.0",
       elixir: "~> 1.5",
+      build_embeded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      description: description(),
+      package: package(),
+      name: "Iconic",
+      deps: deps(),
+      source_url: "https://github.com/ncloudioj/iconic"
     ]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :httpoison],
+      extra_applications: [:httpoison],
       mod: {Iconic, []}
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  defp description do
+    ~s(
+      An simple icon discovery application that supports icon, apple-touch-icon, applie-touch-icon-precomposed, fluid-icon, and mask-icon.
+    )
+  end
+
+  defp package do
+    [
+      maintainers: ["Nan Jiang"],
+      licenses: ["Apache 2.0"],
+      links: %{"Github" => "https://github.com/ncloudioj/iconic"}
+    ]
+  end
+
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
       {:floki, "~> 0.18.0"},
       {:httpoison, "0.13.0"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
