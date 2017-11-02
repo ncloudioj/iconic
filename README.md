@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/ncloudioj/iconic.svg?branch=master)](https://travis-ci.org/ncloudioj/iconic) [![Hex pm](https://img.shields.io/hexpm/v/iconic.svg?style=flat)](https://hex.pm/packages/iconic)
+
 # Iconic
 
-Fetch icon links from sites like a breeze.
+Fetch icon links from sites like a breeze. It supports "icon", "shortcut icon", "apple-touch-icon", "apple-touch-icon-precomposed", "fluid-icon", and "mask-icon".
 
 ## Usage
 
@@ -36,8 +38,7 @@ iex> Enum.to_list(Iconic.mget(
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `iconic` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `iconic` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
