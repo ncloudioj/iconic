@@ -4,7 +4,7 @@ ExUnit.start()
 
 Enum.each(
   files,
-  fn(file) ->
+  fn file ->
     unless String.starts_with?(file, ".") do
       Code.require_file("util/#{file}", __DIR__)
     end

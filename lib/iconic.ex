@@ -17,8 +17,7 @@ defmodule Iconic do
       {Task.Supervisor, name: Icon.Fetch.Supervisor}
     ]
 
-    opts = [strategy: :one_for_one,
-            name: Iconic.Supervisor]
+    opts = [strategy: :one_for_one, name: Iconic.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -30,7 +29,7 @@ defmodule Iconic do
       iex> task = Iconic.get("www.foo.com")
       iex> Task.await(task)
   """
-  @spec get(String.t) :: Task.t
+  @spec get(String.t()) :: Task.t()
   def get(url) do
     Task.Supervisor.async(Icon.Fetch.Supervisor, Fetch, :fetch, [url])
   end
@@ -52,7 +51,7 @@ defmodule Iconic do
         iex> Enum.to_list(tasks)
 
   """
-  @spec mget(String.t, keyword) :: Enumerable.t
+  @spec mget(String.t(), keyword) :: Enumerable.t()
   def mget(urls, options \\ []) do
     Task.Supervisor.async_stream(
       Icon.Fetch.Supervisor,

@@ -5,9 +5,9 @@ defmodule Iconic.Mixfile do
     [
       app: :iconic,
       version: "0.1.1",
-      elixir: "~> 1.5",
-      build_embeded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      elixir: "~> 1.13",
+      build_embeded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       description: description(),
       package: package(),
       name: "Iconic",
@@ -41,11 +41,11 @@ defmodule Iconic.Mixfile do
 
   defp deps do
     [
-      {:floki, "~> 0.18.0"},
-      {:httpoison, "0.13.0"},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-      {:earmark, "~> 1.2.3", only: [:dev]},
-      {:ex_doc, "~> 0.18.1", only: [:dev]}
+      {:floki, "~> 0.33.1"},
+      {:httpoison, "~> 1.8"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:earmark, "~> 1.4", only: [:dev]},
+      {:ex_doc, "~> 0.28.5", only: [:dev]}
     ]
   end
 end

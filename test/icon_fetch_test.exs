@@ -8,7 +8,7 @@ defmodule IconFetchTest do
 
     assert length(icons) == 1
 
-    icon = hd icons
+    icon = hd(icons)
     assert icon.href == "http://test.com/a/favicon.ico"
     assert icon.rel == "icon"
     assert icon.sizes == "16x16"
@@ -20,7 +20,7 @@ defmodule IconFetchTest do
 
     assert length(icons) == 1
 
-    icon = hd icons
+    icon = hd(icons)
     assert icon.href == "http://test.com/a/favicon.ico"
     assert icon.rel == "icon"
     assert icon.sizes == "16x16"

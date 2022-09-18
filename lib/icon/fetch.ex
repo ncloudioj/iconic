@@ -4,7 +4,7 @@ defmodule Icon.Fetch do
 
   """
 
-  @http_client Application.get_env(:iconic, :http_client)
+  @http_client Application.compile_env(:iconic, :http_client)
 
   alias Icon.Parse
 
@@ -27,15 +27,16 @@ defmodule Icon.Fetch do
       [%Icon.Parse.Icon{href: "http://www.foo.com/favicon.ico"}]
 
   """
-  @spec fetch(String.t) :: [Icon.Parse.Icon.t] | []
+  @spec fetch(String.t()) :: [Icon.Parse.Icon.t()] | []
   def fetch(url) do
-    url = case Regex.match?(~r/^https?/, url) do
-      true -> url
-      false -> "http://#{url}"
-    end
+    url =
+      case Regex.match?(~r/^https?/, url) do
+        true -> url
+        false -> "http://#{url}"
+      end
 
     url
-    |> @http_client.get([], [follow_redirect: true])
+    |> @http_client.get([], follow_redirect: true)
     |> parse_response
     |> Parse.parse(url)
   end

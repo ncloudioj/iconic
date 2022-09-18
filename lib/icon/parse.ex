@@ -5,9 +5,9 @@ defmodule Icon.Parse do
   """
 
   defmodule Icon do
-  @moduledoc "Icon struct"
+    @moduledoc "Icon struct"
 
-    @type t :: %__MODULE__{href: String.t, rel: String.t, type: String.t, sizes: String.t}
+    @type t :: %__MODULE__{href: String.t(), rel: String.t(), type: String.t(), sizes: String.t()}
 
     defstruct [:href, :rel, :type, :sizes]
   end
@@ -31,7 +31,7 @@ defmodule Icon.Parse do
       [%Icon.Parse.Icon{href: "http://test.com/a/favicon.ico", rel: "icon"}]
 
   """
-  @spec parse(String.t, String.t) :: [Icon.t] | []
+  @spec parse(String.t(), String.t()) :: [Icon.t()] | []
   def parse(html, url) do
     html
     |> extract_icons
@@ -57,6 +57,7 @@ defmodule Icon.Parse do
       attr(tl, name)
     end
   end
+
   defp attr([], _name) do
     nil
   end
@@ -74,14 +75,19 @@ defmodule Icon.Parse do
     href = icon.href
 
     case Regex.match?(~r/^https?/, href) do
-      true -> icon
+      true ->
+        icon
+
       false ->
         uri = URI.parse(href)
+
         case uri do
           %URI{host: nil} ->
-            %{icon | href: %{URI.parse(url) | path: uri.path} |> URI.to_string}
+            %{icon | href: %{URI.parse(url) | path: uri.path} |> URI.to_string()}
+
           %URI{scheme: nil} ->
-            %{icon | href: %{uri | scheme: "http"} |> URI.to_string}
+            %{icon | href: %{uri | scheme: "http"} |> URI.to_string()}
+
           _ ->
             icon
         end
